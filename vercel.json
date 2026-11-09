@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/services", "destination": "/services.html", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact-us.html", "permanent": true },
+    { "source": "/kitchen-renovations", "destination": "/kitchen-renovations.html", "permanent": true },
+    { "source": "/bathroom-renovations", "destination": "/bathroom-renovations.html", "permanent": true },
+    { "source": "/basement-development", "destination": "/basement-development.html", "permanent": true },
+    { "source": "/outdoor-space%2Flandscaping", "destination": "/outdoor-landscaping.html", "permanent": true },
+    { "source": "/outdoor-space/landscaping", "destination": "/outdoor-landscaping.html", "permanent": true },
+    { "source": "/drywall-finishes", "destination": "/drywall-finishes.html", "permanent": true },
+    { "source": "/tile-work", "destination": "/tile-work.html", "permanent": true },
+    { "source": "/flooring", "destination": "/flooring.html", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), payment=(), usb=()" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}
