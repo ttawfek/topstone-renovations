@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Serve site (localhost:8080)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "python -u -m http.server 8080 --bind 127.0.0.1",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Serving HTTP on .* port ([0-9]+)",
+        "uriFormat": "http://localhost:%s"
+      }
+    }
+  ]
+}
