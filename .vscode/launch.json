@@ -5,7 +5,7 @@
       "name": "Serve site (localhost:8080)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "python -u -m http.server 8080 --bind 127.0.0.1",
+      "command": "node dev-server.js",
       "cwd": "${workspaceFolder}",
       "serverReadyAction": {
         "action": "openExternally",

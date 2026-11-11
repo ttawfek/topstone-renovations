@@ -7,10 +7,12 @@ Plain HTML, CSS and JS. No framework and no build step.
 Press F5 in VS Code (`.vscode/launch.json` serves the site on http://localhost:8080), or:
 
 ```bash
-python -m http.server 8080
+node dev-server.js
 ```
 
-The form posts to `/api/send`, a Vercel function, so testing it locally needs `vercel dev`.
+`dev-server.js` also runs the `/api/send` function, so the contact form works locally. With no keys it runs in dry-run mode and prints each email in the terminal. To send real emails, create `.env.local` (git-ignored) with `RESEND_API_KEY=...` and `LEADS_TO=...`.
+
+Don't use `python -m http.server`: it can't handle the form's POST, so the form always shows "That did not send."
 
 ## What lives where
 
@@ -22,6 +24,7 @@ The form posts to `/api/send`, a Vercel function, so testing it locally needs `v
 | `js.js` | Menu, reveals, before/after sliders, videos, lightbox, form |
 | `motion.js` | Scroll parallax only (`data-parallax`) |
 | `api/send.js` | Emails the form through Resend |
+| `dev-server.js` | Local preview server that also runs `api/send.js` |
 | `vercel.json` | Redirects from the old GoDaddy URLs, security headers |
 
 The header and footer are repeated on every page, so use find and replace across `*.html` to change them.
