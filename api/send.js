@@ -3,7 +3,7 @@
 //
 // Environment variables (Vercel → Project → Settings → Environment Variables):
 //   RESEND_API_KEY  required. Never exposed to the browser.
-//   LEADS_TO        required. Where quote requests go (comma-separated).
+//   LEADS_TO        where quote requests go (comma-separated). Default topstone95@gmail.com
 //   MAIL_FROM       sender; its domain must be verified in Resend.
 //                   Default "Top Stone Renovations <info@topstonerenovations.com>"
 //
@@ -11,7 +11,7 @@
 // and is redirected back to contact-us.html#form-sent / #form-error.
 
 const SITE = { name: 'Top Stone Renovations', phone: '(403) 969-0814' };
-const LEADS_TO = process.env.LEADS_TO || '';
+const LEADS_TO = process.env.LEADS_TO || 'topstone95@gmail.com';
 const MAIL_FROM = process.env.MAIL_FROM || 'Top Stone Renovations <info@topstonerenovations.com>';
 const PAGE = '/contact-us.html';
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -102,8 +102,8 @@ module.exports = async function handler(req, res) {
   const built = compose(body);
   if (built.error) return reply(400, { ok: false, error: built.error });
 
-  if (!process.env.RESEND_API_KEY || !LEADS_TO) {
-    console.error('send: RESEND_API_KEY or LEADS_TO is not set');
+  if (!process.env.RESEND_API_KEY) {
+    console.error('send: RESEND_API_KEY is not set');
     return reply(500, { ok: false, error: 'not_configured' });
   }
 

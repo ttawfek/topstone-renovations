@@ -3,8 +3,9 @@
 //
 //   node dev-server.js            (or press F5 in VS Code)
 //
-// Email: if .env.local sets RESEND_API_KEY and LEADS_TO, real emails are sent through
-// Resend. Otherwise it runs in dry-run mode and prints each email to the terminal instead.
+// Email: if .env.local sets RESEND_API_KEY, real emails are sent through Resend
+// (to LEADS_TO, default topstone95@gmail.com). Otherwise it runs in dry-run mode and
+// prints each email to the terminal instead.
 
 const http = require('http');
 const fs = require('fs');
@@ -22,11 +23,10 @@ if (fs.existsSync(envFile)) {
   }
 }
 
-const DRY_RUN = !process.env.RESEND_API_KEY || !process.env.LEADS_TO;
+const DRY_RUN = !process.env.RESEND_API_KEY;
 if (DRY_RUN) {
-  // must be set before api/send.js is loaded (it reads them at require time)
+  // must be set before api/send.js is loaded (it reads it at require time)
   process.env.RESEND_API_KEY = 'dry-run';
-  process.env.LEADS_TO = 'leads@example.test';
   const realFetch = global.fetch;
   global.fetch = async (url, opts) => {
     if (String(url).startsWith('https://api.resend.com/')) {
@@ -94,6 +94,6 @@ http.createServer(async (req, res) => {
 }).listen(PORT, '127.0.0.1', () => {
   console.log(`Serving HTTP on 127.0.0.1 port ${PORT} (http://localhost:${PORT}/)`);
   console.log(DRY_RUN
-    ? 'Contact form: dry-run mode (emails are printed here, not sent). Add RESEND_API_KEY and LEADS_TO to .env.local to send for real.'
-    : `Contact form: sending through Resend to ${process.env.LEADS_TO}`);
+    ? 'Contact form: dry-run mode (emails are printed here, not sent). Add RESEND_API_KEY to .env.local to send for real.'
+    : `Contact form: sending through Resend to ${process.env.LEADS_TO || 'topstone95@gmail.com'}`);
 });

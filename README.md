@@ -10,7 +10,7 @@ Press F5 in VS Code (`.vscode/launch.json` serves the site on http://localhost:8
 node dev-server.js
 ```
 
-`dev-server.js` also runs the `/api/send` function, so the contact form works locally. With no keys it runs in dry-run mode and prints each email in the terminal. To send real emails, create `.env.local` (git-ignored) with `RESEND_API_KEY=...` and `LEADS_TO=...`.
+`dev-server.js` also runs the `/api/send` function, so the contact form works locally. With no keys it runs in dry-run mode and prints each email in the terminal. To send real emails, create `.env.local` (git-ignored) with `RESEND_API_KEY=...`.
 
 Don't use `python -m http.server`: it can't handle the form's POST, so the form always shows "That did not send."
 
@@ -49,5 +49,5 @@ After editing CSS or JS, bump the `?v=` on those links in every page so browsers
 Set these under Project → Settings → Environment Variables:
 
 - `RESEND_API_KEY` (required)
-- `LEADS_TO` (required): the inbox that receives quote requests
+- `LEADS_TO` (optional): the inbox that receives quote requests, comma-separated. Defaults to `topstone95@gmail.com`
 - `MAIL_FROM` (optional): the sender, on a domain verified in Resend. Defaults to `info@topstonerenovations.com`
